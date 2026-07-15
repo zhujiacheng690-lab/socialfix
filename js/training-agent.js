@@ -60,13 +60,15 @@
       category,
       role: inferRole(title, raw.scene || ""),
       background: raw.scene || "这是一个常见的青少年社交场景。",
-      opening: normalizeOpening(raw.quote) || inferOpening(title),
+      opening: extractQuotedOpening(raw.scene) || inferOpening(title, raw.scene || ""),
       goal: inferGoal(title, raw.choices || [])
     };
   }
 
-  function normalizeOpening(quote){
-    return String(quote || "").replace(/[「」]/g, "").trim();
+  function extractQuotedOpening(scene){
+    const text = String(scene || "");
+    const match = text.match(/[「“"]([^」”"]{4,80})[」”"]/);
+    return match ? match[1].trim() : "";
   }
 
   function inferRole(title, background){
@@ -80,10 +82,43 @@
     return "朋友/同学";
   }
 
-  function inferOpening(title){
+  function inferOpening(title, background){
+    const text = title + " " + background;
+    if(/批评|点你名字|走神/.test(text)) return "你刚才在听吗？这个问题你来回答一下。";
+    if(/借.*作业|抄/.test(text)) return "借我抄一下吧，马上就要交了。";
+    if(/摸鱼|小组作业|没人回|朋友圈.*游戏/.test(text)) return "我今天真的没空，你先帮我弄一下吧。";
+    if(/误会|背后|议论/.test(text)) return "我听说你在背后说我，这事你怎么解释？";
+    if(/争成绩|再看|分数/.test(text)) return "这个分数我已经按标准给了，你还有什么问题？";
+    if(/班干部/.test(text)) return "老师觉得你挺适合的，就先定你了。";
+    if(/检讨/.test(text)) return "你文笔好，帮我写一下怎么了？";
+    if(/抢功|汇报/.test(text)) return "这部分主要是我整理出来的。";
+    if(/追问答案|考试前|答案/.test(text)) return "你成绩好，告诉我一下答案怎么了？";
+    if(/误会讲话/.test(text)) return "我刚才都看见你动了，还说不是你？";
+    if(/指出.*错|答案.*错/.test(text)) return "你这个答案不对吧，应该不是这样。";
+    if(/退出.*比赛/.test(text)) return "都已经报名了，现在退出不太合适吧？";
+    if(/帮忙完成任务|总让你帮/.test(text)) return "你做得快，帮我做一下嘛。";
+    if(/阴阳怪气|进步/.test(text)) return "哟，最近偷偷卷起来了是吧？";
+    if(/偷看手机/.test(text)) return "没问题的话，为什么不能让我看？";
+    if(/当面吵架/.test(text)) return "你说说，到底是谁的问题？";
+    if(/替你做决定|周末班/.test(text)) return "我们都给你报好了，也是为你以后考虑。";
+    if(/总说为你好|为了你好/.test(text)) return "我都是为了你好，你以后就懂了。";
+    if(/打断你说话/.test(text)) return "你别说了，我知道你要讲什么。";
+    if(/聊天记录/.test(text)) return "没问题为什么不能看聊天记录？";
+    if(/兴趣.*否定|画画/.test(text)) return "这个以后不能当饭吃，别花太多时间。";
+    if(/外貌.*玩笑/.test(text)) return "开个玩笑嘛，别这么敏感。";
+    if(/取消约定/.test(text)) return "计划临时变一下，你别这么计较。";
+    if(/表演才艺/.test(text)) return "来一个嘛，大家都想看。";
     if(/放鸽子/.test(title)) return "今天我有点懒，下次吧。";
-    if(/抢功/.test(title)) return "这部分主要是我整理出来的。";
-    if(/聊天记录|手机/.test(title)) return "没问题的话，为什么不能让我看？";
+    if(/秘密/.test(text)) return "我以为这件事没什么，就顺口说了。";
+    if(/外号/.test(text)) return "这个外号挺可爱的啊，大家都这么叫。";
+    if(/借东西/.test(text)) return "我又忘带了，下次一定还你。";
+    if(/不想参加/.test(text)) return "你不来就没意思了。";
+    if(/追问隐私/.test(text)) return "随便聊聊嘛，你怎么这么防备？";
+    if(/群聊.*没人回应/.test(text)) return "刚才没人看到吧。";
+    if(/只在需要/.test(text)) return "你想太多了，我这不是正好有事嘛。";
+    if(/玩笑掩饰冒犯/.test(text)) return "开个玩笑你怎么还生气？";
+    if(/加入聊天/.test(text)) return "我们刚才在聊那家店，你知道吗？";
+    if(/结束.*关系/.test(text)) return "你是不是故意躲着我？";
     return "你打算怎么回应？";
   }
 
