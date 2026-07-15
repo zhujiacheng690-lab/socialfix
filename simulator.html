@@ -7,562 +7,250 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg-0:#08081a;
-  --primary:#7c3aed; --primary-2:#ec4899;
-  --good:#06d6a0; --key:#ffd60a; --info:#38bdf8; --warm:#f97316;
-  --text:#f5f5ff; --text-2:#c7c7e0; --text-3:#8b8bb0;
-  --border:rgba(255,255,255,.08);
+  --bg-0:#08081a; --primary:#7c3aed; --primary-2:#ec4899;
+  --good:#06d6a0; --key:#ffd60a; --info:#38bdf8; --warm:#f97316; --danger:#ef4444;
+  --text:#f5f5ff; --text-2:#c7c7e0; --text-3:#8b8bb0; --border:rgba(255,255,255,.08);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:var(--bg-0);color:var(--text);font-family:'Inter','Noto Sans SC',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-
 .bg{position:fixed;inset:0;z-index:-2;background:
-  radial-gradient(1000px 700px at 20% 10%, rgba(124,58,237,.30), transparent 60%),
-  radial-gradient(1000px 700px at 80% 90%, rgba(236,72,153,.24), transparent 60%),
-  radial-gradient(700px 500px at 90% 20%, rgba(255,214,10,.14), transparent 60%),
-  linear-gradient(180deg,#08081a,#03030c);}
-.orbs{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
-.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;animation:float 22s ease-in-out infinite}
-.orb.o1{width:520px;height:520px;background:radial-gradient(circle,#7c3aed,transparent 65%);top:-140px;left:-120px}
-.orb.o2{width:460px;height:460px;background:radial-gradient(circle,#ec4899,transparent 65%);top:34%;right:-160px;animation-delay:-8s}
-.orb.o3{width:380px;height:380px;background:radial-gradient(circle,#ffd60a,transparent 65%);bottom:-120px;left:24%;animation-delay:-14s;opacity:.3}
-@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}}
-
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(24px);background:rgba(8,8,26,.6);border-bottom:1px solid var(--border)}
+  radial-gradient(900px 650px at 15% 10%, rgba(124,58,237,.30), transparent 60%),
+  radial-gradient(900px 650px at 85% 85%, rgba(236,72,153,.22), transparent 60%),
+  radial-gradient(700px 500px at 50% 100%, rgba(6,214,160,.12), transparent 60%),
+  linear-gradient(180deg,#08081a,#03030c)}
+.stars{position:fixed;inset:0;z-index:-1;opacity:.28;background-image:
+  radial-gradient(1px 1px at 12% 20%, #fff, transparent),
+  radial-gradient(1px 1px at 30% 60%, #fff, transparent),
+  radial-gradient(2px 2px at 75% 75%, #fff, transparent),
+  radial-gradient(1px 1px at 85% 15%, #fff, transparent);background-size:600px 600px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(24px);background:rgba(8,8,26,.62);border-bottom:1px solid var(--border)}
 .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;letter-spacing:-.02em;text-decoration:none;color:inherit}
-.logo-dot{width:12px;height:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));border-radius:50%;box-shadow:0 0 20px rgba(236,72,153,.7);animation:pulse 2.5s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.logo-dot{width:12px;height:12px;background:linear-gradient(135deg,var(--primary),var(--primary-2));border-radius:50%;box-shadow:0 0 20px rgba(236,72,153,.7)}
 .nav-links{display:flex;gap:20px;align-items:center;font-size:14px}
 .nav-links a{color:var(--text-2);text-decoration:none;transition:.2s}
+.nav-links a:hover{color:#fff}
 .back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-3);text-decoration:none}
-.back-link:hover{color:#fff}
-
-/* Header */
-.header{padding:130px 40px 20px;text-align:center;max-width:900px;margin:0 auto}
-.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;background:rgba(255,214,10,.12);border:1px solid rgba(255,214,10,.35);color:var(--key);font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:22px;backdrop-filter:blur(10px)}
-.chip::before{content:"";width:6px;height:6px;background:var(--key);border-radius:50%;box-shadow:0 0 12px var(--key)}
-.header h1{font-size:clamp(56px,10vw,140px);font-weight:900;letter-spacing:-.04em;line-height:.9;background:linear-gradient(135deg,#fff 0%,var(--primary-2) 50%,var(--key));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px;text-shadow:0 0 80px rgba(236,72,153,.2)}
-.header p{font-size:17px;color:var(--text-2);line-height:1.7;max-width:640px;margin:0 auto}
-.header p b{color:#fff;font-weight:700}
-
-/* Card container */
-.wrap{max-width:820px;margin:40px auto 0;padding:0 24px 80px}
-
-/* Filter bar */
-.filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
-.filter{padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:inherit}
-.filter:hover{background:rgba(255,255,255,.08);color:#fff}
-.filter.active{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;border-color:transparent;box-shadow:0 8px 20px rgba(124,58,237,.4)}
-
-/* Scenario card */
-.arena{position:relative;padding:36px;border-radius:28px;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.01));border:1px solid var(--border);backdrop-filter:blur(20px);overflow:hidden;min-height:400px}
-.arena::before{content:"";position:absolute;top:-40%;right:-40%;width:70%;height:70%;background:radial-gradient(circle,var(--primary-2),transparent 65%);filter:blur(60px);opacity:.25;pointer-events:none}
-.arena > *{position:relative;z-index:1}
-
-.arena-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px;flex-wrap:wrap}
-.arena-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.05em}
-.arena-tag.study{background:rgba(56,189,248,.15);color:#7dd3fc;border:1px solid rgba(56,189,248,.35)}
-.arena-tag.family{background:rgba(236,72,153,.15);color:#f9a8d4;border:1px solid rgba(236,72,153,.35)}
-.arena-tag.life{background:rgba(6,214,160,.15);color:#6ee7b7;border:1px solid rgba(6,214,160,.35)}
-.arena-count{font-family:monospace;font-size:11px;color:var(--text-3);letter-spacing:.15em}
-
-.arena-title{font-size:26px;font-weight:900;letter-spacing:-.02em;margin-bottom:14px;line-height:1.2}
-.arena-scene{padding:18px 22px;background:rgba(56,189,248,.06);border-left:3px solid var(--info);border-radius:0 12px 12px 0;font-size:15px;line-height:1.75;color:var(--text-2);margin-bottom:14px}
-.arena-quote{padding-left:14px;border-left:2px dashed rgba(236,72,153,.4);font-style:italic;color:var(--primary-2);font-size:15px;line-height:1.7;margin-bottom:26px}
-
-/* Choices */
-.choices-label{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-3);letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px;font-weight:700}
-.choices-label::before{content:"";width:24px;height:1px;background:var(--text-3)}
-.choices{display:flex;flex-direction:column;gap:12px}
-.choice{padding:18px 22px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;cursor:pointer;transition:.25s;text-align:left;font-family:inherit;font-size:15px;line-height:1.6;color:var(--text);position:relative;overflow:hidden}
-.choice:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);transform:translateX(4px)}
-.choice-letter{display:inline-block;width:26px;height:26px;border-radius:8px;background:rgba(255,255,255,.08);color:var(--text-2);font-weight:900;font-size:13px;text-align:center;line-height:26px;margin-right:12px;flex-shrink:0;transition:.25s}
-.choice:hover .choice-letter{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff}
-.choice.disabled{pointer-events:none;opacity:.55}
-
-/* Feedback */
-.feedback{margin-top:26px;padding:24px;border-radius:20px;border:1px solid var(--border);background:rgba(255,255,255,.03);animation:fadeIn .35s ease-out}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.feedback-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.feedback-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;flex-shrink:0}
-.feedback-label{font-size:11px;color:var(--text-3);letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin-bottom:2px}
-.feedback-title{font-size:18px;font-weight:900;letter-spacing:-.01em}
-
-.feedback.good .feedback-icon{background:linear-gradient(135deg,var(--good),var(--info))}
-.feedback.good .feedback-title{color:#a3f5cf}
-.feedback.mid .feedback-icon{background:linear-gradient(135deg,var(--key),var(--warm));color:#0a0a1f}
-.feedback.mid .feedback-title{color:var(--key)}
-.feedback.bad .feedback-icon{background:linear-gradient(135deg,#ef4444,var(--warm))}
-.feedback.bad .feedback-title{color:#fca5a5}
-
-.feedback-body{font-size:14.5px;color:var(--text-2);line-height:1.85;margin-bottom:16px}
-.feedback-body b{color:#fff;font-weight:700}
-.feedback-tip{padding:14px 16px;background:rgba(255,214,10,.08);border:1px dashed rgba(255,214,10,.3);border-radius:12px;font-size:13px;color:var(--text-2);line-height:1.7;display:flex;gap:12px}
-.feedback-tip::before{content:"💡";font-size:18px;flex-shrink:0}
-
-/* Bottom actions */
-.arena-actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
-.btn{padding:14px 24px;border-radius:14px;font-size:14px;font-weight:800;text-decoration:none;transition:.25s;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none;font-family:inherit}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 12px 30px rgba(124,58,237,.4);flex:1;justify-content:center;font-size:15px}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(124,58,237,.55)}
-.btn-ghost{background:rgba(255,255,255,.05);color:var(--text-2);border:1px solid var(--border)}
-.btn-ghost:hover{background:rgba(255,255,255,.1);color:#fff}
-
-/* How-to strip */
-.howto{margin:60px auto 0;max-width:820px;padding:24px 28px;border-radius:20px;background:linear-gradient(135deg,rgba(6,214,160,.08),rgba(56,189,248,.08));border:1px solid rgba(6,214,160,.15);display:flex;gap:20px;align-items:center;flex-wrap:wrap}
-.howto-emo{font-size:40px;flex-shrink:0}
-.howto-body h4{font-size:16px;font-weight:900;margin-bottom:6px}
-.howto-body p{font-size:13.5px;color:var(--text-2);line-height:1.7}
-.howto-body b{color:#fff}
-
-footer{padding:80px 40px 40px;text-align:center;border-top:1px solid var(--border);margin-top:80px}
-.foot-text{color:var(--text-3);font-size:13px}
-
-@media (max-width:700px){
-  nav{padding:14px 16px}
-  .nav-links a:not(.back-link){display:none}
-  .header{padding:110px 20px 20px}
-  .wrap{padding:0 16px 60px}
-  .arena{padding:24px}
-  .arena-title{font-size:22px}
-}
+.nav-cta{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff!important;padding:8px 18px;border-radius:999px;font-weight:700}
+.header{padding:126px 40px 30px;text-align:center;max-width:960px;margin:0 auto}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;background:rgba(236,72,153,.12);border:1px solid rgba(236,72,153,.3);color:var(--primary-2);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
+.chip::before{content:"";width:6px;height:6px;background:var(--primary-2);border-radius:50%;box-shadow:0 0 12px var(--primary-2)}
+.header h1{font-size:clamp(46px,8vw,92px);font-weight:900;letter-spacing:-.045em;line-height:.96;background:linear-gradient(135deg,#fff 0%,var(--primary-2) 58%,var(--good));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
+.header p{font-size:17px;color:var(--text-2);line-height:1.7;max-width:720px;margin:0 auto}
+main{padding:30px 40px 80px}
+.shell{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+.mode-switch{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.api-strip{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;max-width:820px;margin:0 auto}
+.api-note{grid-column:1 / -1;color:var(--text-3);font-size:12px;line-height:1.5;text-align:center}
+.mode-btn,.btn{border:none;cursor:pointer;font-family:inherit;color:#fff;font-weight:900;transition:.22s}
+.mode-btn{padding:12px 20px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--border)}
+.mode-btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-2));box-shadow:0 12px 28px rgba(236,72,153,.32)}
+.mode-btn:hover,.btn:hover{transform:translateY(-1px)}
+.panel{position:relative;padding:24px;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.015));border:1px solid var(--border);backdrop-filter:blur(18px);overflow:hidden}
+.panel::before{content:"";position:absolute;top:-40%;right:-35%;width:70%;height:70%;background:radial-gradient(circle,var(--primary-2),transparent 65%);filter:blur(60px);opacity:.16;pointer-events:none}
+.panel>*{position:relative;z-index:1}
+.mode-panel{display:none}.mode-panel.active{display:block}
+.grid{display:grid;grid-template-columns:minmax(0,1.4fr) 340px;gap:20px;align-items:start}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.select,.input,.textarea{width:100%;border:1px solid var(--border);background:rgba(255,255,255,.045);color:var(--text);border-radius:14px;font:inherit}
+.select,.input{padding:11px 12px}.select option{background:#101026;color:#fff}
+.textarea{padding:14px;resize:vertical;min-height:96px;max-height:240px;line-height:1.65}
+.select:focus,.input:focus,.textarea:focus{outline:none;border-color:rgba(236,72,153,.55);background:rgba(255,255,255,.07)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid var(--border)}
+.btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));box-shadow:0 10px 26px rgba(124,58,237,.32)}
+.btn.good{background:linear-gradient(135deg,var(--good),var(--info));color:#061018}
+.btn.warn{background:rgba(255,214,10,.11);border-color:rgba(255,214,10,.26);color:var(--key)}
+.btn.danger{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.28);color:#fecaca}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.scene-card{margin-bottom:16px;padding:18px;border-radius:18px;background:rgba(56,189,248,.055);border:1px solid rgba(56,189,248,.16)}
+.scene-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.06em}
+.tag.study{background:rgba(56,189,248,.15);color:#7dd3fc;border:1px solid rgba(56,189,248,.32)}
+.tag.family{background:rgba(236,72,153,.15);color:#f9a8d4;border:1px solid rgba(236,72,153,.32)}
+.tag.life{background:rgba(6,214,160,.15);color:#6ee7b7;border:1px solid rgba(6,214,160,.32)}
+.round{font-family:monospace;font-size:12px;color:var(--text-3);letter-spacing:.12em}
+.scene-title{font-size:25px;font-weight:900;letter-spacing:-.02em;margin-bottom:10px}
+.meta-list{display:grid;gap:8px;color:var(--text-2);font-size:14px;line-height:1.65}
+.meta-list b{color:#fff}
+.chat-log{height:410px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:18px;background:rgba(0,0,0,.16);border:1px solid var(--border);margin-bottom:14px}
+.bubble{max-width:86%;padding:13px 15px;border-radius:16px;border:1px solid var(--border);background:rgba(255,255,255,.045);line-height:1.68;white-space:pre-wrap}
+.bubble .speaker{display:block;font-size:11px;color:var(--text-3);font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.bubble.user{align-self:flex-end;background:linear-gradient(135deg,rgba(124,58,237,.26),rgba(236,72,153,.18));border-color:rgba(236,72,153,.24)}
+.bubble.role{align-self:flex-start}.bubble.fixy{align-self:center;background:rgba(6,214,160,.08);border-color:rgba(6,214,160,.22);max-width:94%}
+.input-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.inline-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.score-card h3,.side-card h3,.help-result h3{font-size:16px;font-weight:900;margin-bottom:12px}
+.score-big{text-align:center;padding:8px 0 14px}
+.score-num{font-size:40px;font-weight:900;background:linear-gradient(135deg,var(--good),var(--info));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.score-lab{font-size:11px;color:var(--text-3);letter-spacing:.15em}
+.dim-list{display:grid;gap:12px}
+.dim-head{display:flex;justify-content:space-between;gap:10px;font-size:13px;margin-bottom:6px}.dim-val{font-family:monospace;font-weight:900;color:#fff}
+.dim-bar{height:7px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden}
+.dim-fill{height:100%;width:0;border-radius:999px;transition:.35s}
+.f1{background:linear-gradient(90deg,var(--primary-2),var(--primary))}.f2{background:linear-gradient(90deg,var(--key),var(--warm))}.f3{background:linear-gradient(90deg,var(--info),#0ea5e9)}.f4{background:linear-gradient(90deg,var(--good),#10b981)}
+.side-card{padding:18px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid var(--border);margin-bottom:14px}
+.fixy-box{font-size:13.5px;color:var(--text-2);line-height:1.75;display:grid;gap:8px}
+.fixy-box b{color:#fff}.error-box{display:none;margin-top:10px;padding:12px 14px;border-radius:12px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#fecaca;font-size:13px;line-height:1.6}.error-box.show{display:block}
+.summary-box{display:none;margin-top:14px;padding:16px;border-radius:16px;background:rgba(255,214,10,.08);border:1px solid rgba(255,214,10,.24);color:var(--text-2);line-height:1.7}.summary-box.show{display:block}
+.help-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);gap:20px}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.help-result{display:grid;gap:12px}
+.result-card{padding:14px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid var(--border);line-height:1.68;color:var(--text-2)}
+.result-card h4{color:#fff;font-size:14px;margin-bottom:6px}.result-card ul{padding-left:20px}.result-card li{margin:4px 0}
+.reply-grid{display:grid;gap:10px}.copy-row{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.copy-text{white-space:pre-wrap;color:var(--text)}
+.hidden{display:none!important}
+footer{padding:40px;text-align:center;border-top:1px solid var(--border);margin-top:40px}.foot-text{color:var(--text-3);font-size:13px}
+@media (max-width:980px){.grid,.help-layout{grid-template-columns:1fr}.chat-log{height:360px}.form-grid{grid-template-columns:1fr}.input-row{grid-template-columns:1fr}.header{padding:110px 20px 24px}main{padding:24px 20px 60px}nav{padding:14px 20px}.nav-links a:not(.back-link):not(.nav-cta){display:none}.panel{padding:18px}.bubble{max-width:96%}}
 </style>
 </head>
 <body>
-<div class="bg"></div>
-<div class="orbs">
-  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
-</div>
-
+<div class="bg"></div><div class="stars"></div>
 <nav>
   <a class="logo" href="index.html"><span class="logo-dot"></span>Socialfix</a>
   <div class="nav-links">
     <a class="back-link" href="index.html">← 回到首页</a>
+    <a href="simulator.html" class="nav-cta">🎯 训练场</a>
   </div>
 </nav>
 
-<div class="header">
-  <div class="chip">✦ Training Ground · No Score</div>
+<header class="header">
+  <div class="chip">AI Practice Arena</div>
   <h1>训练场</h1>
-  <p>抽一个场景，试一次你的反应。这里<b>不看分数、不打卡、不排名</b>——只是给你一个纯练手的空间。选一个答案，看看会发生什么，然后再抽下一个。</p>
-</div>
+  <p>不再做选择题。现在你可以直接开口练习，也可以把真实社交难题交给 Fixy 帮你拆解。</p>
+</header>
 
-<div class="wrap">
-  <div class="filters" id="filters">
-    <button class="filter active" data-filter="all">全部场景</button>
-    <button class="filter" data-filter="study">🎓 学习</button>
-    <button class="filter" data-filter="family">🏠 家庭</button>
-    <button class="filter" data-filter="life">🌆 生活</button>
-  </div>
-
-  <div class="arena" id="arena">
-    <div class="arena-top">
-      <span class="arena-tag" id="arenaTag">场景</span>
-      <span class="arena-count" id="arenaCount">SCENE 01 / 12</span>
+<main>
+  <div class="shell">
+    <div class="mode-switch" aria-label="训练场模式">
+      <button class="mode-btn active" id="trainingModeBtn" type="button" data-mode="training">场景训练</button>
+      <button class="mode-btn" id="helpModeBtn" type="button" data-mode="help">我要求助</button>
     </div>
-    <h2 class="arena-title" id="arenaTitle">加载中…</h2>
-    <div class="arena-scene" id="arenaScene"></div>
-    <div class="arena-quote" id="arenaQuote"></div>
-
-    <div class="choices-label">你会怎么回？</div>
-    <div class="choices" id="choices"></div>
-
-    <div id="feedbackWrap"></div>
-
-    <div class="arena-actions">
-      <button class="btn btn-primary" id="nextBtn">🎲 换一个场景</button>
-      <a class="btn btn-ghost" href="index.html">回到分类</a>
+    <div class="api-strip panel">
+      <input class="input" id="apiKeyInput" type="password" autocomplete="off" placeholder="输入临时 OpenAI API Key">
+      <button class="btn primary" id="saveApiKeyBtn" type="button">使用这个 Key</button>
+      <div class="api-note" id="apiKeyStatus">Key 只保存在当前页面内存中，刷新后会清空。展示结束后请撤销临时 Key。</div>
     </div>
-  </div>
 
-  <div class="howto">
-    <div class="howto-emo">🕊</div>
-    <div class="howto-body">
-      <h4>这里没有对错，只有练习</h4>
-      <p>每个选项都会给你一段<b>正向的反馈</b>——就算选了不理想的答案，也不会说你"错"，只会告诉你在真实场景里会发生什么、下次可以怎么调整。<b>把它当成一个安全的沙盒</b>，反复练，直到那句话变成你的本能。</p>
-    </div>
+    <section class="mode-panel active" id="trainingPanel" aria-labelledby="trainingModeBtn">
+      <div class="grid">
+        <div class="panel">
+          <div class="toolbar">
+            <select class="select" id="categorySelect" aria-label="选择训练分类">
+              <option value="all">随机</option>
+              <option value="study">学习</option>
+              <option value="family">家庭</option>
+              <option value="life">生活</option>
+            </select>
+            <button class="btn primary" id="startTrainingBtn" type="button">开始训练</button>
+            <button class="btn" id="changeSceneBtn" type="button">换一个场景</button>
+            <button class="btn danger" id="resetTrainingBtn" type="button">重新开始</button>
+            <button class="btn warn" id="finishTrainingBtn" type="button">结束训练</button>
+          </div>
+
+          <div class="scene-card" id="sceneCard">
+            <div class="scene-top">
+              <span class="tag" id="sceneCategory">场景训练</span>
+              <span class="round" id="roundLabel">未开始</span>
+            </div>
+            <h2 class="scene-title" id="sceneTitle">选择分类后，点击“开始训练”</h2>
+            <div class="meta-list">
+              <div><b>当前模式：</b><span id="currentModeLabel">场景训练</span></div>
+              <div><b>对话对象：</b><span id="sceneRole">-</span></div>
+              <div><b>背景：</b><span id="sceneBackground">从已有学习、家庭、生活场景中抽取。</span></div>
+              <div><b>训练目标：</b><span id="sceneGoal">练习共情、边界、建设性和情绪降级。</span></div>
+            </div>
+          </div>
+
+          <div class="chat-log" id="trainingChat" aria-live="polite"></div>
+          <div class="input-row">
+            <textarea class="textarea" id="trainingInput" maxlength="3000" placeholder="用你自己的话回复对方……"></textarea>
+            <button class="btn good" id="sendTrainingBtn" type="button">发送</button>
+          </div>
+          <div class="inline-actions">
+            <button class="btn warn" id="hintBtn" type="button">给我一点提示</button>
+            <button class="btn" id="exampleBtn" type="button">给我示范一句</button>
+            <button class="btn hidden" id="retryTrainingBtn" type="button">重新发送</button>
+          </div>
+          <div class="error-box" id="trainingError"></div>
+          <div class="summary-box" id="trainingSummary"></div>
+          <div class="inline-actions hidden" id="summaryActions">
+            <button class="btn primary" id="summaryRetryBtn" type="button">再练一次</button>
+            <button class="btn" id="summaryChangeBtn" type="button">换一个场景</button>
+            <button class="btn good" id="summaryHelpBtn" type="button">去求助</button>
+          </div>
+        </div>
+
+        <aside>
+          <div class="side-card score-card">
+            <h3>四维评分</h3>
+            <div class="score-big">
+              <div class="score-num" id="totalScore">--</div>
+              <div class="score-lab">AVERAGE SCORE</div>
+            </div>
+            <div class="dim-list">
+              <div><div class="dim-head"><span>💗 共情度</span><span class="dim-val" id="empathyVal">0</span></div><div class="dim-bar"><div class="dim-fill f1" id="empathyBar"></div></div></div>
+              <div><div class="dim-head"><span>🛡️ 边界感</span><span class="dim-val" id="boundaryVal">0</span></div><div class="dim-bar"><div class="dim-fill f2" id="boundaryBar"></div></div></div>
+              <div><div class="dim-head"><span>🧩 建设性</span><span class="dim-val" id="constructVal">0</span></div><div class="dim-bar"><div class="dim-fill f3" id="constructBar"></div></div></div>
+              <div><div class="dim-head"><span>🌊 情绪降级</span><span class="dim-val" id="deescalationVal">0</span></div><div class="dim-bar"><div class="dim-fill f4" id="deescalationBar"></div></div></div>
+            </div>
+          </div>
+          <div class="side-card">
+            <h3>Fixy 点评</h3>
+            <div class="fixy-box" id="fixyFeedback">开始训练后，每轮都会看到一个优点、一个改进点和下一步提示。</div>
+          </div>
+          <div class="side-card">
+            <h3>本轮分数</h3>
+            <div class="fixy-box" id="lastRoundScores">还没有完成回合。</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="mode-panel" id="helpPanel" aria-labelledby="helpModeBtn">
+      <div class="help-layout">
+        <div class="panel">
+          <h2 class="scene-title">我要求助</h2>
+          <p class="meta-list">描述一个真实困扰，Fixy 会帮你拆解局面、整理风险，并给出三种可参考回复。</p>
+          <textarea class="textarea" id="helpSituation" maxlength="3000" placeholder="发生了什么？对方是谁？对方原话是什么？你最困扰什么？"></textarea>
+          <div class="form-grid">
+            <select class="select" id="relationshipSelect" aria-label="对方关系">
+              <option>同学</option><option>朋友</option><option>家人</option><option>老师</option><option>小组成员</option><option>喜欢的人</option><option>陌生人</option><option>其他</option>
+            </select>
+            <select class="select" id="goalSelect" aria-label="希望达到的目标">
+              <option>缓和关系</option><option>解释清楚</option><option>表达不满</option><option>拒绝请求</option><option>设置边界</option><option>道歉</option><option>结束对话</option><option>我也不确定</option>
+            </select>
+            <select class="select" id="toneSelect" aria-label="希望的回复风格">
+              <option>自然</option><option>温和</option><option>坚定</option><option>简短</option><option>幽默但不过分</option>
+            </select>
+          </div>
+          <div class="inline-actions">
+            <button class="btn primary" id="askHelpBtn" type="button">向 Fixy 求助</button>
+            <button class="btn" id="sampleHelpBtn" type="button">试试示例</button>
+            <button class="btn danger" id="clearHelpBtn" type="button">清空</button>
+            <button class="btn hidden" id="retryHelpBtn" type="button">重新发送</button>
+          </div>
+          <div class="error-box" id="helpError"></div>
+          <div class="chat-log" id="helpChat" aria-live="polite"></div>
+          <div class="input-row">
+            <textarea class="textarea" id="helpFollowInput" maxlength="1200" placeholder="继续追问：比如“能不能更短一点？”"></textarea>
+            <button class="btn good" id="sendFollowBtn" type="button">继续问</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h2 class="scene-title">Fixy 建议</h2>
+          <div class="help-result" id="helpResult">
+            <div class="result-card">结果会显示在这里。AI 返回内容只会以纯文本方式插入页面。</div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
-</div>
+</main>
 
 <footer><div class="foot-text">Socialfix · 训练场 · 一次只练一句话</div></footer>
-
-<script>
-/* ===== Training scenarios (no scoring) ===== */
-const SCENES = [
-  {
-    cat:'study', tag:'🎓 学习场景',
-    title:'被同学当众开你玩笑',
-    scene:'下课时同学当着一群人的面拿你过去的糗事开玩笑，你能感觉到笑声里有点不对劲。',
-    quote:'「哈哈哈还是那次最经典！他脸都绿了。」',
-    choices:[
-      { text:'笑着说「过去了过去了，别再翻旧账 😂」，然后自然换话题。',
-        kind:'good',
-        head:'很稳的回应',
-        body:'你用<b>轻松的口气划出了边界</b>——参与但不接梗。这样既没有让气氛变尴尬，又清楚地告诉了对方"这个话题到此为止"。多数朋友到这里就会自然收手。',
-        tip:'加分动作：说完之后主动把话题引向别的事情（比如"对了你说下午那个……"），别的朋友会顺势跟着走。'
-      },
-      { text:'跟着自嘲得更狠，反正大家开心就行。',
-        kind:'mid',
-        head:'心里其实有点憋',
-        body:'表面上你合群了，但你自己会更不舒服。<b>长期这样，朋友会习惯性地把你当"梗"</b>——你在他们心里的位置会一点点下滑。合群不用靠贬低自己。',
-        tip:'下次试试："这个梗我也听腻了 😂 来说点新的。" 一样轻松，但保住了尊严。'
-      },
-      { text:'冷下脸："哪次不比你强！" 直接回击。',
-        kind:'bad',
-        head:'火气可以理解，但代价大',
-        body:'你反击的当下爽，但<b>会把玩笑变成对立</b>。旁边的人不会觉得你「维护自尊」，只会觉得"XX 突然翻脸了"。你要的其实是尊重，不是赢。',
-        tip:'情绪上来时先深呼吸一下，用「过去了过去了」代替反击——一样能停下话题，还不留伤。'
-      },
-      { text:'一言不发，等这场笑话过去。',
-        kind:'mid',
-        head:'沉默是一种回答，但不是最好的',
-        body:'你的不适没有被表达，<b>下次同样的情景还会出现</b>。而且旁人可能理解成"他不在意"，玩笑会继续升级。你有权说"不"。',
-        tip:'哪怕只是一句"OK 我知道你们觉得好笑"就够——让人感觉到你有情绪，就够了。'
-      },
-    ],
-  },
-  {
-    cat:'family', tag:'🏠 家庭场景',
-    title:'爸妈翻你手机',
-    scene:'放学回家，你看到妈妈拿着你手机，一脸严肃地看着你。',
-    quote:'「你在跟谁聊天？为什么删记录？」',
-    choices:[
-      { text:'先坐下，深呼吸："你是不是担心我遇到什么事？"',
-        kind:'good',
-        head:'高手',
-        body:'你没有被字面激怒，而是<b>翻译了她真正的情绪</b>——担心。这一句会让她的火瞬间小一半，因为她感觉到自己被理解了。接下来任何谈判都会更顺利。',
-        tip:'翻译情绪 + 稳定语气 + 后续的边界要求，这套组合能解决 80% 的家庭冲突。'
-      },
-      { text:'"你凭什么翻我东西！" 直接开吵。',
-        kind:'bad',
-        head:'情绪很真实，但结果会更糟',
-        body:'你越激烈，她越觉得"看来真有问题"。<b>攻击换来更多防御</b>——她下次可能会更频繁地检查你。你的边界不会因为吵得响就被尊重。',
-        tip:'先承认她的情绪（担心），再谈你的诉求（隐私）。顺序错了，谁都没赢。'
-      },
-      { text:'"随便你看啊，我没什么好隐瞒的。" 装大度。',
-        kind:'mid',
-        head:'表面赢了，实际上让步了',
-        body:'你把隐私的边界让了出去。<b>爸妈会记住"翻手机他都不反对"</b>，下次继续。而你心里会积累一层层不舒服，早晚会在别的事情上爆发。',
-        tip:'该保护的边界要保护——但用温柔的方式。比如"你可以问我聊了谁，我告诉你，但手机是我的"。'
-      },
-      { text:'当场哭出来，摔门进房间。',
-        kind:'bad',
-        head:'情绪爆发是正常的，但问题没解决',
-        body:'摔门那一下你以为是宣告边界，妈妈接收到的是<b>"这孩子越来越叛逆"</b>。她的担心变成焦虑，下次可能变成更严厉的管控。你的情绪值得被处理，但不是这种方式。',
-        tip:'如果真的很难受，可以说"我现在情绪不好，等一下我们再聊"，然后回房间。这句话本身就是很成熟的表达。'
-      },
-    ],
-  },
-  {
-    cat:'life', tag:'🌆 生活场景',
-    title:'心动的人已读不回',
-    scene:'你今天鼓起勇气跟喜欢的人发了一段长消息，「已读」两个字挂了两个小时。',
-    quote:'你不敢再看手机，又忍不住每隔两分钟刷一次。',
-    choices:[
-      { text:'放下手机去做别的事，心里对自己说「他可能在忙」。',
-        kind:'good',
-        head:'非常成熟的反应',
-        body:'你没有把「未读」变成剧本。<b>已读不回 90% 的原因是「在忙 / 不知道怎么回」</b>，不是"不喜欢你"。给对方时间，也给自己空间——这才是可持续的心动。',
-        tip:'很多美好的关系是靠"耐心"养出来的。你越松，越有魅力。'
-      },
-      { text:'再发一条「在吗？」看看他回不回。',
-        kind:'mid',
-        head:'焦虑可以理解，但操作会扣分',
-        body:'"在吗？"是<b>关系里最没吸引力的三个字</b>——因为它把焦虑感直接甩给对方。就算他本想回，看到这条也会想逃一下。',
-        tip:'真的想续话题的话，隔几个小时发一句和之前无关的、轻松的内容——比"在吗？"高级一百倍。'
-      },
-      { text:'翻朋友圈发一句阴阳文字，让他看看。',
-        kind:'bad',
-        head:'心里的委屈可以看到，但这不是出口',
-        body:'他会看到，但看到的是"这个人有点难搞"。<b>阴阳的动作把你的心理活动全暴露了</b>，而暴露焦虑会让暗恋进入下坡通道。你的委屈很真实，但值得更好的出口。',
-        tip:'难过的时候找朋友聊、写日记、出去走走——比朋友圈能真正让你舒服的事有很多。'
-      },
-      { text:'当天下午就在心里断言"他一定不喜欢我"。',
-        kind:'mid',
-        head:'内心戏太快下结论',
-        body:'两小时不够定义任何关系。<b>你越早下"他不喜欢我"的结论，越容易做出退缩或攻击的举动</b>，反而真的把这段关系推走。事实往往比想象平淡。',
-        tip:'给"证据"多一点耐心——三天没回、四条消息不回，这时候再判断也不迟。'
-      },
-    ],
-  },
-  {
-    cat:'study', tag:'🎓 学习场景',
-    title:'组员完全不动手',
-    scene:'小组作业明晚就交，你已经写完了自己那部分，其他人的部分一片空白。',
-    quote:'群里静得能听见回声。',
-    choices:[
-      { text:'私聊那个明显在摸鱼的组员："今晚 11 点前给我你那部分行吗？我等着合。"',
-        kind:'good',
-        head:'教科书级操作',
-        body:'你做了三件对的事：<b>私聊 + 点名 + 给死线</b>。这种沟通给对方的压力是"具体、可执行"，不是"泛化的抱怨"。8 成情况下他会回你，因为他没得躲。',
-        tip:'加分：语气可以稳一点、甚至带点关心："你最近是不是也挺累？但这个真的今晚要出。" 温度 + 边界。'
-      },
-      { text:'在大群里发："大家该动一动了！"',
-        kind:'mid',
-        head:'看起来很努力，效果不一定',
-        body:'大群里的"大家"等于"没人"。<b>责任被稀释，每个人都觉得别人会做</b>。你越急，他们越可能装没看到。',
-        tip:'把每一句话点到具体的一个人。"@小王 你那部分能今晚给我吗" 比"大家都动起来"有力十倍。'
-      },
-      { text:'算了，我自己把剩下的都写完，交上去再说。',
-        kind:'bad',
-        head:'你会累坏，问题也会重复',
-        body:'一个人扛完的代价不只是这次熬夜——<b>是你在这个小组里的位置永远变成"背锅侠"</b>。他们下次还会这样，因为他们知道你会兜。你需要练习的是"让不该你扛的事情不扛"。',
-        tip:'实在赶时间，也可以先私聊组员一次："我今晚会先补上，但事后我们要谈谈分工。" 保底也保尊严。'
-      },
-      { text:'直接群里发怒："都不做是吧？那我告老师了！"',
-        kind:'bad',
-        head:'情绪出口，但没解决问题',
-        body:'威胁式发言会让所有人都开始防御。<b>就算老师真的介入，你也会被贴上"难搞"的标签</b>——组员之间关系再也回不去。你的诉求（有人帮你交作业）没变，但通道被自己堵住了。',
-        tip:'威胁作为最后手段没问题，但先试试点名 + 死线，八成能解决。'
-      },
-    ],
-  },
-  {
-    cat:'life', tag:'🌆 生活场景',
-    title:'朋友借了钱一直没还',
-    scene:'两个月前你借了朋友 200，说下周还，之后他没提过。你俩每次见面他都很自然。',
-    quote:'你心里别扭已经两个月了。',
-    choices:[
-      { text:'轻松地问："诶对了，之前那 200 你方便的话这周还我一下呗，我这周要用。"',
-        kind:'good',
-        head:'完美',
-        body:'你做到了三点：<b>语气轻、给了理由、暗示时限</b>。这三个动作让"催钱"这件事变成了"顺便一件小事"。真正的朋友听到这句会立刻还，还会不好意思拖了这么久。',
-        tip:'开口的关键是「早」——越早提，越轻松。憋两个月才提，反而两个人都尴尬。'
-      },
-      { text:'一直忍着不说，等他自己想起来。',
-        kind:'bad',
-        head:'关系正在被这 200 块慢慢磨坏',
-        body:'你以为是给他留面子，但<b>那点别扭会一天天磨你</b>——你会开始下意识回避他、消息回得慢、见面不主动。这段友谊会在你自己没注意到的地方，慢慢冷掉。',
-        tip:'开口一次，无非两个结果：他还了（皆大欢喜）/ 他继续拖（看清一个人）。两个结果都比继续憋着强。'
-      },
-      { text:'直接质问他："你欠我的钱怎么还不还？"',
-        kind:'mid',
-        head:'语气有点太重',
-        body:'200 块换来一次关系冲突，划不来。<b>"质问"会让对方本能防御</b>——就算他本来打算还，也会因为不爽而拖。语气软一点，效果反而更好。',
-        tip:'一句"我这周要用"就够了，不需要审问式开头。'
-      },
-      { text:'发朋友圈："借钱容易，还钱难。"',
-        kind:'bad',
-        head:'情绪出口，但会伤朋友圈里所有人',
-        body:'这条动态<b>大家都能对号入座</b>——不止他，其他借过你钱的人也会觉得心里咯噔一下。你的委屈被表达了，但代价是让一群人都不舒服。',
-        tip:'难受的时候找一个信任的朋友吐槽，比公开发泄安全十倍。'
-      },
-    ],
-  },
-  {
-    cat:'family', tag:'🏠 家庭场景',
-    title:'亲戚追问成绩',
-    scene:'过年家里坐满亲戚。姑姑放下筷子，笑着看着你："这次考多少啊？在班里第几名？"',
-    quote:'空气里飘着一点微妙。',
-    choices:[
-      { text:'笑一笑："还行吧，还在努力，谢谢姑姑关心。" 然后夹一筷子菜。',
-        kind:'good',
-        head:'非常成熟',
-        body:'你用<b>一个"客气 + 模糊"的答案</b>把对话自然结束了。既没撒谎，也没交底，还给足了对方面子。八成的亲戚听到这里就会顺着台阶下。你完成了一次成年人的社交。',
-        tip:'夹菜、喝水、离席这些小动作是"退出对话"的黄金动作。用得好，谁都不尴尬。'
-      },
-      { text:'"我班级排 XX 名。" 老实报出数字。',
-        kind:'mid',
-        head:'诚实是好事，但可能招来别的话题',
-        body:'如果分数好，可能会有其他孩子被拿来对比（他们被架起来）；如果分数普通，姑姑可能接下去说"要努力啊"这种话。<b>不是不能说，是要看是否值得</b>。',
-        tip:'家里的孩子多的时候，"还行 + 谢谢关心"往往是对所有人最善意的答案。'
-      },
-      { text:'"关你什么事啊。" 直接怼回去。',
-        kind:'bad',
-        head:'情绪懂，但代价太大',
-        body:'这句话会让你被贴上"不懂事"的标签整整一年。<b>而且姑姑很可能不是恶意，只是不知道聊什么</b>——你的火力用错了对象。',
-        tip:'保护自己不需要撕破脸——一句轻描淡写的"还行"就够。你在成年人的世界里，越有分寸越有力量。'
-      },
-      { text:'脸红着支支吾吾，一直不答。',
-        kind:'mid',
-        head:'其实全场都在等你',
-        body:'沉默会让姑姑更好奇，其他亲戚也会开始围观。<b>越不回答，追问越多</b>。你需要的其实是一句能让场面顺过去的话，不需要完美。',
-        tip:'提前在心里准备好一句"万能话术"（比如"还在努力"），下次遇到直接调用。'
-      },
-    ],
-  },
-  {
-    cat:'life', tag:'🌆 生活场景',
-    title:'第一次跟陌生人搭话',
-    scene:'咖啡馆里，你看到隔壁桌的人正在看你也很喜欢的一本书。你想聊一句，但脑子空白。',
-    quote:'你的手在杯子上转了两圈。',
-    choices:[
-      { text:'"你也在看这本？我上周刚看完，觉得后半段挺意外的。"',
-        kind:'good',
-        head:'完美的开场',
-        body:'你做了两件对的事：<b>用共同的东西做桥梁 + 给了一个可以接的话头</b>（"后半段挺意外"）。对方即使不想深聊，也能自然回一句"哦真的吗？"——你已经完成了最难的第一句。',
-        tip:'开场白的秘诀是"具体"——具体的书、具体的观点，比"你好可以认识你吗"强百倍。'
-      },
-      { text:'盯着看，等对方先注意到你。',
-        kind:'mid',
-        head:'其实……对方可能觉得你怪怪的',
-        body:'长时间的注视不会变成搭讪，只会变成尴尬。<b>大多数人不会主动和陌生人开口，除非有明确的邀请</b>。你想开口，就得自己迈出第一步。',
-        tip:'第一步不需要完美，只需要"开口"。一句普通的话胜过十次"看着对方"。'
-      },
-      { text:'"你好我可以认识你吗？加个联系方式吧。"',
-        kind:'bad',
-        head:'太直接，跳过了铺垫',
-        body:'陌生人对"认识你"这件事本能警惕。你没有先建立<b>「我们有共同点」</b>，就跳到"要联系方式"，会让对方觉得被打扰。搭讪失败率高不是因为你不好，是节奏错了。',
-        tip:'先聊，再考虑要不要留联系方式。聊得来自然会有下一步。'
-      },
-      { text:'什么都不做，回家后一直后悔今天没开口。',
-        kind:'mid',
-        head:'其实你比想象中更勇敢',
-        body:'纠结本身说明你想开口。<b>下一次你会更有可能开口</b>——每一次"差一点点"，都是在为真正开口的那一次做准备。别为没开口那次苛责自己。',
-        tip:'把开口这件事拆成微小的动作："对视一下 → 笑一下 → 说一句话"。一步一步来，你会做到。'
-      },
-    ],
-  },
-  {
-    cat:'study', tag:'🎓 学习场景',
-    title:'被老师当众点名批评',
-    scene:'你上课走神被老师点了名，让你回答一个你完全没听到的问题。',
-    quote:'「你上课到底有没有听？站起来！」',
-    choices:[
-      { text:'"对不起老师，我刚才没跟上，能不能麻烦您再说一次问题？"',
-        kind:'good',
-        head:'满分处理',
-        body:'你做了两件事：<b>承认 + 补救</b>。承认让老师火气消一半，补救让老师看到"这孩子还想学"。这套组合会让全班对你的评价往上一格——不是"被批评的人"，而是"处理得很好的人"。',
-        tip:'承认不丢人，反而是自信的表现——只有心里踏实的人才敢承认。'
-      },
-      { text:'"我没走神，我在想问题。" 硬顶回去。',
-        kind:'bad',
-        head:'撒谎会被一眼看穿',
-        body:'老师看你的眼神就知道你没在听。<b>撒谎会把"走神"升级成"顶撞老师"</b>——原本是小事的，会变成一次真正的冲突。你的自尊本来不用靠撒谎保护。',
-        tip:'承认是最短的止损。一次"对不起"胜过十次辩解。'
-      },
-      { text:'低头一言不发，等老师放过我。',
-        kind:'mid',
-        head:'沉默不是最好的选择',
-        body:'沉默会被解读为"无所谓"，老师往往会继续追问。<b>而且沉默那几秒对你自己是最难熬的</b>——你脑子里全是尴尬，什么都想不出来。',
-        tip:'哪怕只说"对不起我刚才没跟上"，一句话就能把这场僵局解开。'
-      },
-      { text:'哭出来，觉得太丢脸了。',
-        kind:'mid',
-        head:'情绪很真实，但会让场面变复杂',
-        body:'哭不会让你被理解，反而会让老师和同学都不知所措。<b>你的委屈是真的，但表达方式换一下会更有力</b>——一句平稳的道歉，比眼泪更成熟。',
-        tip:'实在难过，下课再哭。当场先把这几秒稳住，事后你会庆幸自己撑住了。'
-      },
-    ],
-  },
-  {
-    cat:'life', tag:'🌆 生活场景',
-    title:'想邀请喜欢的人出来',
-    scene:'你俩最近聊得不错，你想约他 / 她见面，但怕太直接被拒。',
-    quote:'心里排练了 20 种开场白。',
-    choices:[
-      { text:'"这周六下午有个展我想去，你有空一起吗？没空也没关系。"',
-        kind:'good',
-        head:'教科书级邀约',
-        body:'具体时间 + 具体内容 + 低压力兜底。<b>这套三件套让邀约变成一个"轻松的选择题"</b>，而不是一个必须做重大决定的问题。答应的门槛被你降到最低。',
-        tip:'"没空也没关系"这一句是关键——它让对方不至于因为拒绝而尴尬，反而更愿意答应。'
-      },
-      { text:'"你哪天有空？我们出来玩吧！"',
-        kind:'mid',
-        head:'太模糊了',
-        body:'"哪天有空"是一个<b>开放性问题</b>，对方不知道该说哪天。而且没有具体的活动，对方在想"玩什么？"——脑子转一圈还没答，可能就先搁置了。',
-        tip:'邀约要"选择题"，别做"填空题"。给出具体时间、具体地点、具体活动，成功率翻倍。'
-      },
-      { text:'"你是不是不想见我啊？为什么不主动约？"',
-        kind:'bad',
-        head:'施压式邀约',
-        body:'这句话把对方逼到防御位置——他要么否认（尴尬），要么被激怒（远离）。<b>喜欢一个人，不能靠情绪勒索</b>。你想要的是一段轻松的关系，不是一场谈判。',
-        tip:'想见就直说，"想见你"是很有力量的一句话，比"你为什么不主动"高级一百倍。'
-      },
-      { text:'什么都不说，等他主动约。',
-        kind:'mid',
-        head:'可以理解，但机会会溜走',
-        body:'很多好的关系是靠<b>「一方先开口」推进的</b>。等着的时候，你会越来越焦虑，慢慢开始怀疑自己。主动不丢脸——真正勇敢的人才会主动。',
-        tip:'把"如果被拒绝会很丢脸"改成"如果没试过会更遗憾"。你会更容易迈出那一步。'
-      },
-    ],
-  },
-];
-
-/* ===== State ===== */
-let currentFilter = 'all';
-let filtered = SCENES.slice();
-let currentIdx = 0;
-let answered = false;
-
-function shuffleFrom(){
-  filtered = SCENES.filter(s => currentFilter === 'all' || s.cat === currentFilter);
-  // pick a random one (not necessarily the first)
-  currentIdx = Math.floor(Math.random() * filtered.length);
-}
-
-function render(){
-  const s = filtered[currentIdx];
-  const catNames = { study:'🎓 学习场景', family:'🏠 家庭场景', life:'🌆 生活场景' };
-  const arenaTag = document.getElementById('arenaTag');
-  arenaTag.textContent = catNames[s.cat] || s.tag;
-  arenaTag.className = 'arena-tag ' + s.cat;
-  document.getElementById('arenaCount').textContent = 'SCENE ' + String(currentIdx+1).padStart(2,'0') + ' / ' + String(filtered.length).padStart(2,'0');
-  document.getElementById('arenaTitle').textContent = s.title;
-  document.getElementById('arenaScene').textContent = s.scene;
-  document.getElementById('arenaQuote').textContent = s.quote;
-
-  const choicesEl = document.getElementById('choices');
-  choicesEl.innerHTML = '';
-  const letters = ['A','B','C','D'];
-  s.choices.forEach(function(c, i){
-    const btn = document.createElement('button');
-    btn.className = 'choice';
-    btn.innerHTML = '<span class="choice-letter">'+letters[i]+'</span>'+c.text;
-    btn.addEventListener('click', function(){ showFeedback(i); });
-    choicesEl.appendChild(btn);
-  });
-
-  document.getElementById('feedbackWrap').innerHTML = '';
-  answered = false;
-}
-
-function showFeedback(idx){
-  if(answered) return;
-  answered = true;
-  const s = filtered[currentIdx];
-  const c = s.choices[idx];
-  // disable others
-  document.querySelectorAll('.choice').forEach(function(btn, i){
-    if(i !== idx) btn.classList.add('disabled');
-  });
-
-  const icons = { good:'🌟', mid:'💭', bad:'⚠️' };
-  const labels = { good:'非常好的选择', mid:'可以再想想', bad:'这样的话' };
-  const fb = document.createElement('div');
-  fb.className = 'feedback ' + c.kind;
-  fb.innerHTML =
-    '<div class="feedback-top">' +
-      '<div class="feedback-icon">'+icons[c.kind]+'</div>' +
-      '<div>' +
-        '<div class="feedback-label">'+labels[c.kind]+'</div>' +
-        '<div class="feedback-title">'+c.head+'</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="feedback-body">'+c.body+'</div>' +
-    '<div class="feedback-tip">'+c.tip+'</div>';
-  document.getElementById('feedbackWrap').appendChild(fb);
-}
-
-document.getElementById('nextBtn').addEventListener('click', function(){
-  shuffleFrom();
-  render();
-  window.scrollTo({top:document.querySelector('.arena').offsetTop - 80, behavior:'smooth'});
-});
-
-document.querySelectorAll('.filter').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    document.querySelectorAll('.filter').forEach(function(b){ b.classList.remove('active'); });
-    btn.classList.add('active');
-    currentFilter = btn.dataset.filter;
-    shuffleFrom();
-    render();
-  });
-});
-
-// initial
-shuffleFrom();
-render();
-</script>
+<script src="scenes.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/training-agent.js"></script>
+<script src="js/help-agent.js"></script>
 </body>
 </html>

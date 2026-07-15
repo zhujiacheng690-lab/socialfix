@@ -69,42 +69,30 @@ section{padding:60px 40px}
 .tech p{font-size:14px;color:var(--text-2);line-height:1.75}
 
 /* Map */
-.map-wrap{margin-top:40px;position:relative;padding:40px 24px;background:linear-gradient(160deg,rgba(6,214,160,.05),rgba(255,214,10,.03));border:1px solid var(--border);border-radius:32px;overflow:hidden}
-.map-wrap::before{content:"";position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,var(--primary),transparent 65%);opacity:.15;filter:blur(60px)}
-.map-hint{text-align:center;color:var(--text-3);font-size:13px;margin-bottom:28px;letter-spacing:.05em}
-.map{position:relative;min-height:700px;max-width:860px;margin:0 auto}
-.path-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.level-map{--map-accent:var(--primary);--map-accent-2:var(--primary-2);margin-top:40px;position:relative;padding:34px 24px 48px;background:radial-gradient(780px 520px at 4% 2%,rgba(6,214,160,.10),transparent 58%),linear-gradient(160deg,rgba(8,8,26,.96),rgba(6,6,22,.98));border:1px solid var(--border);border-radius:32px;overflow:hidden}
+.level-map::before{content:"";position:absolute;top:-160px;left:-160px;width:480px;height:480px;background:radial-gradient(circle,var(--map-accent),transparent 68%);opacity:.14;filter:blur(70px)}
+.level-map::after{content:"🏙️  ☕  💬  🛋️";position:absolute;right:28px;top:28px;color:rgba(255,255,255,.10);font-size:22px;letter-spacing:14px;pointer-events:none}
+.map-hint{text-align:center;color:var(--text-3);font-size:13px;margin-bottom:28px}
+.map{position:relative;height:3180px;max-width:1080px;margin:0 auto}
+.path-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.78}
+.map-start,.map-finish{position:absolute;z-index:2;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;background:rgba(14,73,104,.72);border:1px solid rgba(56,189,248,.22);font-family:monospace;font-size:12px;font-weight:900;color:#4cc9ff;letter-spacing:.14em;text-decoration:none;box-shadow:0 12px 30px rgba(0,0,0,.32)}
+.map-start{top:0}.map-start::before{content:"🚩"}.map-finish{bottom:0;background:linear-gradient(135deg,rgba(14,73,104,.86),rgba(124,58,237,.50));transition:.25s}.map-finish::before{content:"🏁"}
+.map-finish:hover,.map-finish:focus-visible{transform:translate(-50%,-3px);box-shadow:0 18px 42px rgba(6,214,160,.26);outline:none}
+.node{position:absolute;z-index:2;width:150px;text-align:center;text-decoration:none;color:inherit;transition:transform .25s,filter .25s;animation:nodeIn .5s ease both}
+.node-circle{width:84px;height:84px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(135deg,var(--nc1,var(--map-accent)),var(--nc2,var(--map-accent-2)));display:grid;place-items:center;font-size:30px;box-shadow:0 0 28px rgba(6,214,160,.28),0 12px 28px rgba(0,0,0,.42),inset 0 3px 0 rgba(255,255,255,.25);transition:.25s;position:relative}
+.node-circle::before{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,.22),transparent 42%);pointer-events:none}
+.node-circle::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:2px solid rgba(96,165,250,.18);opacity:0;transition:.25s}
+.node:hover,.node:focus-visible{transform:translateY(-4px);filter:brightness(1.08);outline:none}
+.node:hover .node-circle,.node:focus-visible .node-circle{transform:scale(1.06);box-shadow:0 0 36px rgba(6,214,160,.38),0 16px 32px rgba(0,0,0,.45),inset 0 3px 0 rgba(255,255,255,.28)}
+.node:hover .node-circle::after,.node:focus-visible .node-circle::after{opacity:1}
+.node-num{display:inline-block;font-family:monospace;font-size:13px;font-weight:900;color:#4cc9ff;background:rgba(14,73,104,.82);padding:5px 14px;border-radius:999px;margin-bottom:8px;letter-spacing:.08em}
+.node-title{font-size:16px;font-weight:900;line-height:1.25;margin-bottom:8px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.55)}
+.node-diff{font-size:13px;color:rgba(199,199,224,.72)}
+.node-tag{display:none}
+.n1{top:80px;left:7%}.n2{top:230px;left:42%}.n3{top:380px;right:7%}.n4{top:530px;right:24%}.n5{top:680px;left:29%}.n6{top:830px;left:8%}.n7{top:980px;left:36%}.n8{top:1130px;right:16%}.n9{top:1280px;right:6%}.n10{top:1430px;left:43%}.n11{top:1580px;left:13%}.n12{top:1730px;left:39%}.n13{top:1880px;right:8%}.n14{top:2030px;right:32%}.n15{top:2180px;left:18%}.n16{top:2330px;left:8%}.n17{top:2480px;left:34%}.n18{top:2630px;right:16%}.n19{top:2780px;right:7%}.n20{top:2930px;left:44%}
+@keyframes nodeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.node{animation:none}.node,.node-circle,.map-finish{transition:none}}
 
-.node{position:absolute;width:130px;text-align:center;text-decoration:none;color:inherit;z-index:2}
-.node-circle{width:72px;height:72px;margin:0 auto 12px;border-radius:50%;
-  background:linear-gradient(135deg,var(--nc1,var(--primary)),var(--nc2,var(--primary-2)));
-  display:grid;place-items:center;font-size:30px;
-  box-shadow:0 12px 32px rgba(6,214,160,.4),inset 0 3px 0 rgba(255,255,255,.25);
-  transition:.35s;position:relative}
-.node-circle::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px dashed rgba(255,255,255,.15);opacity:0;transition:.35s}
-.node:hover .node-circle{transform:scale(1.12) rotate(-6deg)}
-.node:hover .node-circle::after{opacity:1;transform:rotate(60deg)}
-.node-tag{display:inline-block;font-size:10px;font-weight:700;color:#fff;padding:2px 8px;border-radius:999px;margin-bottom:4px;letter-spacing:.05em}
-.node-tag.friends{background:linear-gradient(90deg,#38bdf8,#7c3aed)}
-.node-tag.strangers{background:linear-gradient(90deg,#ffd60a,#f97316);color:#0a0a1f}
-.node-tag.lovers{background:linear-gradient(90deg,#ec4899,#7c3aed)}
-.node-num{display:inline-block;font-family:monospace;font-size:10px;font-weight:700;color:var(--text-3);margin-left:6px}
-.node-title{font-size:13px;font-weight:800;line-height:1.35;margin-bottom:2px}
-.node-diff{font-size:11px;color:var(--text-3)}
-.node.locked .node-circle{background:rgba(255,255,255,.05);border:1px dashed var(--border);color:var(--text-3);box-shadow:none}
-.node.locked{pointer-events:none;opacity:.45}
-
-/* Positions - 7 unlocked levels arranged like a wandering path */
-.n1{top:10px;left:5%}
-.n2{top:130px;left:34%}
-.n3{top:50px;right:5%}
-.n4{top:260px;right:22%}
-.n5{top:300px;left:22%}
-.n6{top:470px;left:2%}
-.n7{top:500px;right:8%}
-.n8{top:620px;left:34%}
-
-/* CTA to training */
 .train-strip{margin:60px auto 0;max-width:900px;padding:32px 36px;border-radius:24px;
   background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(236,72,153,.15));
   border:1px solid rgba(236,72,153,.25);
@@ -119,14 +107,13 @@ footer{padding:80px 40px 50px;text-align:center;border-top:1px solid var(--borde
 
 @media (max-width:900px){
   .tech-grid{grid-template-columns:1fr;gap:14px}
-  nav{padding:14px 20px}
-  .header{padding:110px 20px 30px}
-  section{padding:40px 20px}
+  nav{padding:14px 20px}.header{padding:110px 20px 30px}section{padding:40px 20px}
   .nav-links a:not(.back-link):not(.nav-cta){display:none}
-  .map{min-height:auto}.path-svg{display:none}
-  .node{position:relative;top:auto!important;left:auto!important;right:auto!important;width:100%;margin:0 0 16px;display:flex;align-items:center;gap:14px;text-align:left;background:rgba(255,255,255,.03);border:1px solid var(--border);padding:14px;border-radius:16px}
-  .node-circle{margin:0;width:56px;height:56px;font-size:24px;flex-shrink:0}
-  .node > div:not(.node-circle){flex:1}
+  .level-map{padding:30px 12px 40px}.level-map::after{font-size:18px;letter-spacing:8px;right:14px;top:18px}
+  .map{height:auto;display:flex;flex-direction:column;gap:22px;padding:0 0 66px}.path-svg{inset:44px 50% 52px;width:2px;height:calc(100% - 96px)}
+  .map-start,.map-finish{position:relative;left:auto;top:auto;bottom:auto;transform:none;align-self:center}.map-finish:hover,.map-finish:focus-visible{transform:translateY(-3px)}
+  .node{position:relative;top:auto!important;left:auto!important;right:auto!important;width:160px;margin:0 auto}.node:nth-of-type(odd){align-self:flex-start;margin-left:4%}.node:nth-of-type(even){align-self:flex-end;margin-right:4%}
+  .node-circle{width:68px;height:68px;font-size:24px}.node-title{font-size:15px}.node-diff{font-size:12px}.node-num{font-size:11px;padding:4px 11px}
 }
 </style>
 </head>
@@ -186,10 +173,11 @@ footer{padding:80px 40px 50px;text-align:center;border-top:1px solid var(--borde
     <span class="eyebrow">Level Map</span>
     <h2 class="sec-title">选一关开始练</h2>
 
-    <div class="map-wrap">
+    <div class="map-wrap level-map level-map--life">
       <div class="map-hint">从简单场景开始，一关一关来 · 点击节点进入</div>
       <div class="map">
-        <svg class="path-svg" viewBox="0 0 860 700" preserveAspectRatio="none">
+        <div class="map-start">START</div>
+        <svg class="path-svg" viewBox="0 0 1000 3180" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <linearGradient id="pathGrad" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#06d6a0" stop-opacity=".6"/>
@@ -197,8 +185,8 @@ footer{padding:80px 40px 50px;text-align:center;border-top:1px solid var(--borde
               <stop offset="100%" stop-color="#ec4899" stop-opacity=".55"/>
             </linearGradient>
           </defs>
-          <path d="M 90 50 Q 200 120 320 160 T 720 100 Q 800 240 680 320 Q 500 360 340 350 Q 200 380 60 500 Q 250 540 720 540 Q 500 620 360 660"
-                stroke="url(#pathGrad)" stroke-width="3" stroke-dasharray="6 8" fill="none"/>
+          <path d="M150 125 C280 160 405 205 495 275 S800 285 850 425 C870 520 760 575 705 580 S420 620 365 725 C300 850 140 840 120 875 S265 990 420 1025 C560 1065 760 1090 800 1175 S760 1320 850 1325 C780 1450 620 1435 505 1475 S245 1500 205 1625 C260 1740 420 1750 505 1775 S785 1790 850 1925 C790 2025 695 2045 615 2075 S330 2145 255 2225 S120 2320 120 2375 S305 2485 410 2525 C560 2575 755 2610 800 2675 S820 2780 850 2825 C785 2925 620 2945 515 2975"
+                stroke="url(#pathGrad)" stroke-width="7" stroke-dasharray="14 20" stroke-linecap="round" fill="none"/>
         </svg>
 
         <a class="node n1" href="level.html?cat=life&id=1" style="--nc1:#38bdf8;--nc2:#7c3aed">
@@ -219,9 +207,9 @@ footer{padding:80px 40px 50px;text-align:center;border-top:1px solid var(--borde
           <div class="node-title">朋友借钱不还</div>
           <div class="node-diff">☆☆ 进阶</div>
         </a>
-        <a class="node n4" href="level.html?cat=life&id=4" style="--nc1:#ec4899;--nc2:#7c3aed">
+        <a class="node n4" href="level.html?cat=life&id=4" style="--nc1:#38bdf8;--nc2:#7c3aed">
           <div class="node-circle">📱</div>
-          <span class="node-tag lovers">心动</span><span class="node-num">LV.4</span>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.4</span>
           <div class="node-title">要联系方式</div>
           <div class="node-diff">☆☆ 进阶</div>
         </a>
@@ -249,6 +237,79 @@ footer{padding:80px 40px 50px;text-align:center;border-top:1px solid var(--borde
           <div class="node-title">被喜欢的人拒绝</div>
           <div class="node-diff">☆☆☆ 高阶</div>
         </a>
+        <a class="node n9" href="level.html?cat=life&id=9" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">⏰</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.9</span>
+          <div class="node-title">朋友临时放鸽子</div>
+          <div class="node-diff">☆ 入门</div>
+        </a>
+        <a class="node n10" href="level.html?cat=life&id=10" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">🚶</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.10</span>
+          <div class="node-title">三人友谊被落下</div>
+          <div class="node-diff">☆☆ 进阶</div>
+        </a>
+        <a class="node n11" href="level.html?cat=life&id=11" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">🤫</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.11</span>
+          <div class="node-title">秘密被朋友说出去</div>
+          <div class="node-diff">☆☆☆ 高阶</div>
+        </a>
+        <a class="node n12" href="level.html?cat=life&id=12" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">🏷</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.12</span>
+          <div class="node-title">被人当众起外号</div>
+          <div class="node-diff">☆ 入门</div>
+        </a>
+        <a class="node n13" href="level.html?cat=life&id=13" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">🎒</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.13</span>
+          <div class="node-title">别人借东西不还</div>
+          <div class="node-diff">☆ 入门</div>
+        </a>
+        <a class="node n14" href="level.html?cat=life&id=14" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">🎈</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.14</span>
+          <div class="node-title">不想参加朋友活动</div>
+          <div class="node-diff">☆☆ 进阶</div>
+        </a>
+        <a class="node n15" href="level.html?cat=life&id=15" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">❓</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.15</span>
+          <div class="node-title">新认识的人追问隐私</div>
+          <div class="node-diff">☆☆ 进阶</div>
+        </a>
+        <a class="node n16" href="level.html?cat=life&id=16" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">💬</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.16</span>
+          <div class="node-title">群聊发言没人回应</div>
+          <div class="node-diff">☆ 入门</div>
+        </a>
+        <a class="node n17" href="level.html?cat=life&id=17" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">🛟</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.17</span>
+          <div class="node-title">朋友只在需要时找你</div>
+          <div class="node-diff">☆☆ 进阶</div>
+        </a>
+        <a class="node n18" href="level.html?cat=life&id=18" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">😅</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.18</span>
+          <div class="node-title">玩笑掩饰冒犯</div>
+          <div class="node-diff">☆☆ 进阶</div>
+        </a>
+        <a class="node n19" href="level.html?cat=life&id=19" style="--nc1:#ffd60a;--nc2:#f97316">
+          <div class="node-circle">🪑</div>
+          <span class="node-tag strangers">陌生人</span><span class="node-num">LV.19</span>
+          <div class="node-title">聚会不知道加入聊天</div>
+          <div class="node-diff">☆ 入门</div>
+        </a>
+        <a class="node n20" href="level.html?cat=life&id=20" style="--nc1:#38bdf8;--nc2:#7c3aed">
+          <div class="node-circle">🌙</div>
+          <span class="node-tag friends">朋友</span><span class="node-num">LV.20</span>
+          <div class="node-title">结束不舒服的关系</div>
+          <div class="node-diff">☆☆☆ 高阶</div>
+        </a>
+        <a class="map-finish" href="simulator.html">去训练场</a>
       </div>
     </div>
 
