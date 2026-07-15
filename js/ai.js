@@ -2,12 +2,13 @@
   const REQUEST_TIMEOUT_MS = 45000;
 
   const AI_CONFIG = {
-    apiUrl: "https://api.openai.com/v1/responses",
+    apiUrl: "https://api.deepseek.com/chat/completions",
+    apiFormat: "chat_completions",
     // 仅用于临时展示。
     // 该Key会暴露在浏览器和GitHub源码中。
     // 展示完成后立即删除或撤销此Key。
     apiKey: "",
-    model: "gpt-4.1-mini"
+    model: "deepseek-v4-flash"
   };
 
   const TRAINING_AGENT_PROMPT = [
@@ -40,6 +41,10 @@
   }
 
   function extractOutputText(data){
+    const choices = data && Array.isArray(data.choices) ? data.choices : [];
+    if(choices[0] && choices[0].message && typeof choices[0].message.content === "string"){
+      return choices[0].message.content;
+    }
     if(data && typeof data.output_text === "string" && data.output_text.trim()){
       return data.output_text;
     }
@@ -53,6 +58,25 @@
       }
     }
     throw new Error("AI返回中没有可读取的文本。");
+  }
+
+  function buildRequestBody({ mode, instructions, payload }){
+    const input = JSON.stringify({ mode, ...payload });
+    if(AI_CONFIG.apiFormat === "chat_completions"){
+      return {
+        model: AI_CONFIG.model,
+        response_format: { type: "json_object" },
+        messages: [
+          { role: "system", content: instructions },
+          { role: "user", content: input }
+        ]
+      };
+    }
+    return {
+      model: AI_CONFIG.model,
+      instructions,
+      input
+    };
   }
 
   function cleanJsonText(text){
@@ -88,11 +112,7 @@
           "Authorization": "Bearer " + AI_CONFIG.apiKey
         },
         signal: timeout.controller.signal,
-        body: JSON.stringify({
-          model: AI_CONFIG.model,
-          instructions,
-          input: JSON.stringify({ mode, ...payload })
-        })
+        body: JSON.stringify(buildRequestBody({ mode, instructions, payload }))
       });
       if(!response.ok){
         const detail = await response.text();
@@ -103,6 +123,9 @@
     }catch(err){
       if(err && err.name === "AbortError") throw new Error("请求超时，请稍后重试。");
       if(err && /JSON/.test(err.message)) throw new Error("AI返回格式异常，请重试。");
+      if(err && (err.message === "Load failed" || err.message === "Failed to fetch")){
+        throw new Error("网络请求没有成功发到 DeepSeek。请检查浏览器/网络是否拦截 api.deepseek.com，或换 Chrome/关闭内容拦截器后重试。");
+      }
       throw err;
     }finally{
       clearTimeout(timeout.timer);
@@ -115,6 +138,7 @@
     HELP_AGENT_PROMPT,
     callAI,
     extractOutputText,
+    buildRequestBody,
     cleanJsonText,
     parseJsonResponse
   };
